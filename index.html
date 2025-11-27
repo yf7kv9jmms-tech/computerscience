@@ -18,7 +18,19 @@
     <!-- Game Selection Menu -->
     <div id="game-menu">
         <h2>Choose a Game:</h2>
-        <button class="game-btn" onclick="loadGame('nes', 'games/super-mario.nes')">Super Mario Bros</button>
+        <button  style='width:640px;height:480px;max-width:100%'>
+    <div id='game'></div>
+</div>
+ 
+<script type='text/javascript'>
+ 
+    EJS_player = '#game';
+    EJS_core = 'gba';  
+    EJS_gameUrl = 'emerald.gba';
+    EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/';
+ 
+</script>
+<script src='https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/loader.js'></script></button>
         <button class="game-btn" onclick="loadGame('gba', 'games/emerald.gba')">Pokémon Emerald</button>
         <button class="game-btn" onclick="loadGame('snes', 'games/zelda.smc')">Zelda: LTTP</button>
     </div>

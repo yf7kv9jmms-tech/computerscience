@@ -9,6 +9,7 @@
         #emulator-container { display:none; }
         #canvas { border:2px solid #0f0; max-width:100%; margin-top:20px; }
         #back-btn { margin-top:10px; }
+        #status { margin-top:12px; color:#8f8; }
     </style>
 </head>
 <body>
@@ -24,25 +25,48 @@
     
     <!-- Emulator Container -->
     <div id="emulator-container">
+        <div id="status"></div>
         <canvas id="canvas"></canvas><br>
         <button id="back-btn" onclick="location.reload()">Back to Games</button>
     </div>
     
     <script>
+        function showStatus(msg, isError) {
+            const s = document.getElementById('status');
+            if (!s) return;
+            s.textContent = msg;
+            s.style.color = isError ? '#f88' : '#8f8';
+        }
+
         function loadGame(system, gamePath) {
             // Hide menu, show emulator
             document.getElementById('game-menu').style.display = 'none';
             document.getElementById('emulator-container').style.display = 'block';
-            
-            // Configure emulator
+            showStatus('Preparing emulator...');
+
+            // Configure emulator (use lowercase core names)
             window.EJS_player = '#canvas';
             window.EJS_gameUrl = gamePath;
-            window.EJS_core = system;
+            window.EJS_core = (system || '').toLowerCase();
             window.EJS_startOnLoaded = true;
-            
-            // Load emulator script
+
+            // Warn if served over file:// — the emulator often requires HTTP
+            if (location.protocol === 'file:') {
+                showStatus('Running from file:// — start a local HTTP server (see instructions).', true);
+            }
+
+            // Load emulator script with handlers
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.crossOrigin = 'anonymous';
+            script.onload = () => {
+                showStatus('Emulator script loaded — launching game...');
+                console.log('Emulator loader loaded');
+            };
+            script.onerror = () => {
+                showStatus('Failed to load emulator script. Check network or run via HTTP server.', true);
+                console.error('Failed to load emulator loader from', script.src);
+            };
             document.body.appendChild(script);
         }
     </script>

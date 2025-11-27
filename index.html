@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Hub</title>
+    <style>
+        body { background:#000; color:#fff; font-family:sans-serif; padding:20px; text-align:center; }
+        #game-menu { margin-bottom:20px; }
+        .game-btn { margin:5px; padding:10px 20px; font-size:16px; cursor:pointer; }
+        #emulator-container { display:none; }
+        #canvas { border:2px solid #0f0; max-width:100%; margin-top:20px; }
+        #back-btn { margin-top:10px; }
+    </style>
+</head>
+<body>
+    <h1>🎮 Game Hub</h1>
+    
+    <!-- Game Selection Menu -->
+    <div id="game-menu">
+        <h2>Choose a Game:</h2>
+        <button class="game-btn" onclick="loadGame('nes', 'games/super-mario.nes')">Super Mario Bros</button>
+        <button class="game-btn" onclick="loadGame('gba', 'games/pokemon.gba')">Pokémon Emerald</button>
+        <button class="game-btn" onclick="loadGame('snes', 'games/zelda.smc')">Zelda: LTTP</button>
+    </div>
+    
+    <!-- Emulator Container -->
+    <div id="emulator-container">
+        <canvas id="canvas"></canvas><br>
+        <button id="back-btn" onclick="location.reload()">Back to Games</button>
+    </div>
+    
+    <script>
+        function loadGame(system, gamePath) {
+            // Hide menu, show emulator
+            document.getElementById('game-menu').style.display = 'none';
+            document.getElementById('emulator-container').style.display = 'block';
+            
+            // Configure emulator
+            window.EJS_player = '#canvas';
+            window.EJS_gameUrl = gamePath;
+            window.EJS_core = system;
+            window.EJS_startOnLoaded = true;
+            
+            // Load emulator script
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
+        }
+    </script>
+</body>
+</html>

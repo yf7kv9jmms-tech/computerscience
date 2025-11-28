@@ -21,4 +21,9 @@ A client-side proxy interface that runs on GitHub Pages static hosting. This too
 
 ### 1. Create GitHub Repository
 
-1. Go to GitHub and create a new repository named:
+1. Go to GitHub and create a new repository.
+2. Make it **Public** (required for GitHub Pages on free accounts)
+3. Clone it locally:
+```bash
+git clone https://github.com/your-username/your-username.github.io.git
+

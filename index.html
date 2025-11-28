@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Proxy - GitHub Pages</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 GitHub Pages Proxy</h1>
+            <p>Client-side proxy interface running on static hosting</p>
+        </header>
+
+        <main>
+            <div class="proxy-form">
+                <div class="input-group">
+                    <select id="method">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                    <input type="url" id="url" placeholder="https://api.example.com/data" required>
+                    <button id="sendBtn">Send Request</button>
+                </div>
+
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="useProxy" checked> Use CORS Proxy
+                    </label>
+                    <select id="proxySelect">
+                        <option value="https://cors-anywhere.herokuapp.com/">cors-anywhere</option>
+                        <option value="https://api.allorigins.win/raw?url=">allorigins</option>
+                        <option value="custom">Custom Proxy</option>
+                    </select>
+                    <input type="url" id="customProxy" placeholder="Custom proxy URL" style="display:none;">
+                </div>
+
+                <div class="headers-section">
+                    <h3>Custom Headers (JSON)</h3>
+                    <textarea id="headers" placeholder='{"Authorization": "Bearer token"}'></textarea>
+                </div>
+
+                <div class="body-section" id="bodySection" style="display:none;">
+                    <h3>Request Body</h3>
+                    <textarea id="body" placeholder='{"key": "value"}'></textarea>
+                </div>
+            </div>
+
+            <div class="response-area">
+                <h3>Response</h3>
+                <div id="status" class="status"></div>
+                <pre id="response"></pre>
+            </div>
+
+            <div class="history">
+                <h3>Request History</h3>
+                <ul id="historyList"></ul>
+                <button id="clearHistory" class="secondary">Clear History</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>⚠️ This proxy requires a CORS proxy service. <a href="#about">Learn more</a></p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
